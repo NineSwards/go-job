@@ -1,14 +1,20 @@
 syntax = "proto3";
 
 option go_package = "./;registry";
+option java_multiple_files = true;
+option java_package = "com.nine.gojob.protos";
+option java_outer_classname = "GoJobProtos";
+
 package proto.registry;
 
-service Register {
-  rpc Registry (RegistryRequest) returns (RegistryReply){}
+service JobServerRegister {
+  rpc JobRegistry (RegistryRequest) returns (RegistryReply);
+  rpc JobUnRegistry (RegistryRequest) returns (RegistryReply);
 }
 
 message RegistryRequest {
-  string name = 1;
+  string serverName =1;
+  repeated string serverList = 2;
 }
 
 message RegistryReply {

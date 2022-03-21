@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.19.4
-// source: job_registry.proto
+// source: server/registry/job_registry.proto
 
 package registry
 
@@ -18,88 +18,124 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// RegisterClient is the client API for Register service.
+// JobServerRegisterClient is the client API for JobServerRegister service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type RegisterClient interface {
-	Registry(ctx context.Context, in *RegistryRequest, opts ...grpc.CallOption) (*RegistryReply, error)
+type JobServerRegisterClient interface {
+	JobRegistry(ctx context.Context, in *RegistryRequest, opts ...grpc.CallOption) (*RegistryReply, error)
+	JobUnRegistry(ctx context.Context, in *RegistryRequest, opts ...grpc.CallOption) (*RegistryReply, error)
 }
 
-type registerClient struct {
+type jobServerRegisterClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewRegisterClient(cc grpc.ClientConnInterface) RegisterClient {
-	return &registerClient{cc}
+func NewJobServerRegisterClient(cc grpc.ClientConnInterface) JobServerRegisterClient {
+	return &jobServerRegisterClient{cc}
 }
 
-func (c *registerClient) Registry(ctx context.Context, in *RegistryRequest, opts ...grpc.CallOption) (*RegistryReply, error) {
+func (c *jobServerRegisterClient) JobRegistry(ctx context.Context, in *RegistryRequest, opts ...grpc.CallOption) (*RegistryReply, error) {
 	out := new(RegistryReply)
-	err := c.cc.Invoke(ctx, "/proto.registry.Register/Registry", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/proto.registry.JobServerRegister/JobRegistry", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// RegisterServer is the server API for Register service.
-// All implementations must embed UnimplementedRegisterServer
+func (c *jobServerRegisterClient) JobUnRegistry(ctx context.Context, in *RegistryRequest, opts ...grpc.CallOption) (*RegistryReply, error) {
+	out := new(RegistryReply)
+	err := c.cc.Invoke(ctx, "/proto.registry.JobServerRegister/JobUnRegistry", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// JobServerRegisterServer is the server API for JobServerRegister service.
+// All implementations must embed UnimplementedJobServerRegisterServer
 // for forward compatibility
-type RegisterServer interface {
-	Registry(context.Context, *RegistryRequest) (*RegistryReply, error)
-	mustEmbedUnimplementedRegisterServer()
+type JobServerRegisterServer interface {
+	JobRegistry(context.Context, *RegistryRequest) (*RegistryReply, error)
+	JobUnRegistry(context.Context, *RegistryRequest) (*RegistryReply, error)
+	mustEmbedUnimplementedJobServerRegisterServer()
 }
 
-// UnimplementedRegisterServer must be embedded to have forward compatible implementations.
-type UnimplementedRegisterServer struct {
+// UnimplementedJobServerRegisterServer must be embedded to have forward compatible implementations.
+type UnimplementedJobServerRegisterServer struct {
 }
 
-func (UnimplementedRegisterServer) Registry(context.Context, *RegistryRequest) (*RegistryReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Registry not implemented")
+func (UnimplementedJobServerRegisterServer) JobRegistry(context.Context, *RegistryRequest) (*RegistryReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method JobRegistry not implemented")
 }
-func (UnimplementedRegisterServer) mustEmbedUnimplementedRegisterServer() {}
+func (UnimplementedJobServerRegisterServer) JobUnRegistry(context.Context, *RegistryRequest) (*RegistryReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method JobUnRegistry not implemented")
+}
+func (UnimplementedJobServerRegisterServer) mustEmbedUnimplementedJobServerRegisterServer() {}
 
-// UnsafeRegisterServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to RegisterServer will
+// UnsafeJobServerRegisterServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to JobServerRegisterServer will
 // result in compilation errors.
-type UnsafeRegisterServer interface {
-	mustEmbedUnimplementedRegisterServer()
+type UnsafeJobServerRegisterServer interface {
+	mustEmbedUnimplementedJobServerRegisterServer()
 }
 
-func RegisterRegisterServer(s grpc.ServiceRegistrar, srv RegisterServer) {
-	s.RegisterService(&Register_ServiceDesc, srv)
+func RegisterJobServerRegisterServer(s grpc.ServiceRegistrar, srv JobServerRegisterServer) {
+	s.RegisterService(&JobServerRegister_ServiceDesc, srv)
 }
 
-func _Register_Registry_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _JobServerRegister_JobRegistry_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RegistryRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RegisterServer).Registry(ctx, in)
+		return srv.(JobServerRegisterServer).JobRegistry(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/proto.registry.Register/Registry",
+		FullMethod: "/proto.registry.JobServerRegister/JobRegistry",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RegisterServer).Registry(ctx, req.(*RegistryRequest))
+		return srv.(JobServerRegisterServer).JobRegistry(ctx, req.(*RegistryRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Register_ServiceDesc is the grpc.ServiceDesc for Register service.
+func _JobServerRegister_JobUnRegistry_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegistryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(JobServerRegisterServer).JobUnRegistry(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.registry.JobServerRegister/JobUnRegistry",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(JobServerRegisterServer).JobUnRegistry(ctx, req.(*RegistryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// JobServerRegister_ServiceDesc is the grpc.ServiceDesc for JobServerRegister service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Register_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.registry.Register",
-	HandlerType: (*RegisterServer)(nil),
+var JobServerRegister_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "proto.registry.JobServerRegister",
+	HandlerType: (*JobServerRegisterServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Registry",
-			Handler:    _Register_Registry_Handler,
+			MethodName: "JobRegistry",
+			Handler:    _JobServerRegister_JobRegistry_Handler,
+		},
+		{
+			MethodName: "JobUnRegistry",
+			Handler:    _JobServerRegister_JobUnRegistry_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "job_registry.proto",
+	Metadata: "server/registry/job_registry.proto",
 }

@@ -6,10 +6,15 @@ import (
 )
 
 type Server struct {
-	UnimplementedRegisterServer
+	UnimplementedJobServerRegisterServer
 }
 
-func (s *Server) Registry(ctx context.Context, in *RegistryRequest) (*RegistryReply, error) {
-	log.Printf("Received: %v", in.GetName())
-	return &RegistryReply{Message: "Hello " + in.GetName()}, nil
+func (s *Server) JobRegistry(ctx context.Context, in *RegistryRequest) (*RegistryReply, error) {
+	log.Printf("Received: %v", in.GetServerName())
+	return &RegistryReply{Message: "Hello " + in.GetServerName()}, nil
+}
+
+func (s *Server) JobUnRegistry(ctx context.Context, in *RegistryRequest) (*RegistryReply, error) {
+	log.Printf("Received: %v", in.GetServerName())
+	return &RegistryReply{Message: "Bye " + in.GetServerName()}, nil
 }

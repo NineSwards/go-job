@@ -1,10 +1,10 @@
 package util
 
 import (
+	"github.com/NineSwards/go-job/util"
 	"os"
 	"testing"
 )
-import "github.com/NineSwards/go-job/core/util"
 
 func TestGetEnv(t *testing.T) {
 	home := util.GetEnv("HOME")

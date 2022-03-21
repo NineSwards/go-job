@@ -3,7 +3,7 @@ package server
 import (
 	"flag"
 	"fmt"
-	reg "github.com/NineSwards/go-job/core/server/registry"
+	jobReg "github.com/NineSwards/go-job/server/registry"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -20,7 +20,7 @@ func RunServer() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	reg.RegisterRegisterServer(s, &reg.Server{})
+	jobReg.RegisterJobServerRegisterServer(s, &jobReg.Server{})
 	log.Printf("server listening at %v", lis.Addr())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)

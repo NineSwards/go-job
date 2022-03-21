@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/NineSwards/go-job/core/server"
+	"github.com/NineSwards/go-job/server"
 	"github.com/robfig/cron"
 	"log"
 )
