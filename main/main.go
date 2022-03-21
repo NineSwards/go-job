@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/NineSwards/go-job/core/server"
 	"github.com/robfig/cron"
 	"log"
 )
@@ -16,5 +17,6 @@ func main() {
 
 	c.Start()
 
+	server.RunServer()
 	select {}
 }

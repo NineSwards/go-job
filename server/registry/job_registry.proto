@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option go_package = "./;registry";
+package proto.registry;
+
+service Register {
+  rpc Registry (RegistryRequest) returns (RegistryReply){}
+}
+
+message RegistryRequest {
+  string name = 1;
+}
+
+message RegistryReply {
+  string message = 1;
+}
