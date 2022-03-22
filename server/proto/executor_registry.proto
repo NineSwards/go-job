@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option go_package = "./;executor";
+option java_multiple_files = false;
+option java_package = "com.nine.gojob.proto";
+option java_outer_classname = "JobExecutorProto";
+
+package proto.registry;
+
+service JobExecutorRegister {
+  rpc ExecutorRegistry (RegistryRequest) returns (RegistryReply);
+  rpc ExecutorUnRegistry (RegistryRequest) returns (RegistryReply);
+}
+
+message RegistryRequest {
+  string serverName =1;
+  repeated string serverList = 2;
+}
+
+message RegistryReply {
+  string message = 1;
+}

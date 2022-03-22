@@ -9,5 +9,5 @@ brew install protobuf
 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest 
 
-protoc --go_out=./server/registry --go-grpc_out=./server/registry server/registry/job_registry.proto
+ protoc --java_out=./server/executor --go-grpc_out=./server/executor server/proto/executor_registry.proto
 ```
