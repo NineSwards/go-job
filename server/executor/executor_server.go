@@ -9,12 +9,22 @@ type RpcServer struct {
 	UnimplementedJobExecutorRegisterServer
 }
 
-func (s *RpcServer) ExecutorRegistry(ctx context.Context, in *RegistryRequest) (*RegistryReply, error) {
+func (s *RpcServer) ExecutorRegistry(_ context.Context, in *RegistryRequest) (*RegistryReply, error) {
+
 	log.Printf("Received: %v", in.GetServerName())
-	return &RegistryReply{Message: "Hello " + in.GetServerName()}, nil
+	serverList := in.GetServerList()
+	for idx, value := range serverList {
+		log.Printf("Received: index %d server %s", idx, value)
+	}
+	log.Printf("Received serverList: %v", serverList)
+	return &RegistryReply{
+		Message: "Hello " + in.GetServerName(),
+	}, nil
 }
 
-func (s *RpcServer) ExecutorUnRegistry(ctx context.Context, in *RegistryRequest) (*RegistryReply, error) {
+func (s *RpcServer) ExecutorUnRegistry(_ context.Context, in *RegistryRequest) (*RegistryReply, error) {
 	log.Printf("Received: %v", in.GetServerName())
-	return &RegistryReply{Message: "Bye " + in.GetServerName()}, nil
+	return &RegistryReply{
+		Message: "Bye " + in.GetServerName(),
+	}, nil
 }
