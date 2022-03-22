@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/NineSwards/go-job/server v0.0.0-20220322025434-3a2ea50aba23
+	github.com/NineSwards/go-job/dal latest
 	golang.org/x/net v0.0.0-20220225172249-27dd8689420f
 	google.golang.org/grpc v1.45.0
 )
@@ -17,3 +18,4 @@ require (
 )
 
 replace github.com/NineSwards/go-job/server => ../server
+replace github.com/NineSwards/go-job/dal => ../dal
